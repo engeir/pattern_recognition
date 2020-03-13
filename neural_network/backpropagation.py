@@ -19,12 +19,12 @@ class NeuralNetwork:
 
         Arguments:
             L {int} -- the amount of hidden layers you want
-            layer_dim {list} -- a list of int describing how many neuron the hidden layers and the output layer should have
+            layer_dim {list} -- a list of int describing how many neurons the hidden layers and the output layer should have
             i_num {int} -- the dimensionality of the input space
-            kernel_func {str, optional} -- choose which type of kernel function you want to use
+            kernel_func {str, optional} -- choose which type of kernel function you want to use (default: logistic)
         """
         if (L + 1) != len(layer_dim):
-            print('Please correctly specify how many neurons will be in each layer.')
+            print('Please correctly specify how many neurons will be in each layer. (The dimensions do not align.)')
             exit()
         if kernel_func == 'logistic':
             self.kernel_func = self.logistic
@@ -69,8 +69,8 @@ class NeuralNetwork:
     def propagate_forward(self, inputs, training_session=False):
         if training_session:
             v_list = []
-            # The augmented inputs is set to be the first y's (i.e. output of layer 0).
-            # dim y: (N × [feature space +1])
+            # The augmented inputs are set to be the first y's (i.e. output of layer 0).
+            # dim y: (N × [feature space + 1])
             y = inputs
             for i in range(self.L):
                 if i == self.L - 1:
@@ -105,8 +105,7 @@ class NeuralNetwork:
         return y_hat
 
     def propagate_backward(self, inputs, ytr, momentum=False):
-        # With momentum included, the weighs corrections from last epoch need to be kept. Or is it last
-
+        # With momentum included, the weight corrections from last epoch need to be kept.
         ytr = ytr.reshape((len(ytr), 1))
         v_list = self.propagate_forward(inputs, training_session=True)
 
