@@ -1,8 +1,9 @@
 import random
-import numpy as np
-import matplotlib.pyplot as plt
-import backpropagation as bp
 
+import matplotlib.pyplot as plt
+import numpy as np
+
+import backpropagation as bp
 
 random.seed(0)
 y = lambda x: 0.3 + 0.2 * np.cos(2 * np.pi * x)
