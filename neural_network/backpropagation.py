@@ -1,4 +1,5 @@
 import numpy as np
+# TODO: seems to be unable to use only one hidden layer (L=1).
 
 
 class NeuralNetwork:
@@ -11,8 +12,8 @@ class NeuralNetwork:
     #   rectified:
     #     ?
     #     ?
-    ERROR_CONST = 0.004
-    MOMENTUM = 0.0015
+    ERROR_CONST = 0.04
+    MOMENTUM = 0.015
 
     def __init__(self, L, layer_dim, i_num, kernel_func=None):
         """Initiate the NeuralNetwork structure.
@@ -36,12 +37,24 @@ class NeuralNetwork:
             print('You have a typo when specifying the kernel_func.')
             exit()
         self.L = L
-        self.layer_dim = layer_dim
         self.i_num = i_num
+        self.layer_dim = layer_dim
         self.weights = []
         self.weights_correction = []
 
         self.make_weights()
+
+    def get_error_const(self):
+        return self.ERROR_CONST
+
+    def set_error_const(self, err):
+        self.ERROR_CONST = err
+
+    def get_momentum(self):
+        return self.MOMENTUM
+
+    def set_momentum(self, mom):
+        self.MOMENTUM = mom
 
     @staticmethod
     def rectified(v_value, d=True):
@@ -116,7 +129,8 @@ class NeuralNetwork:
         if delta.shape[0] != inputs.shape[0]:
             # dim delta: (N × k_L)
             delta = delta.T
-        y_prev = np.c_[self.kernel_func(v_list[-2]), np.ones(v_list[-2].shape[0])]
+        y_prev = np.c_[self.kernel_func(
+            v_list[-2]), np.ones(v_list[-2].shape[0])]
         if momentum:
             self.weights[-1] += self.MOMENTUM * self.weights_correction[-1] - \
                 self.ERROR_CONST * (delta.T @ y_prev)
