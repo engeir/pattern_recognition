@@ -29,6 +29,8 @@ def prob_4_17():
 
     nn = bp.NeuralNetwork(
         L=L, layer_dim=[1, 4, 1], i_num=1, kernel_func='logistic')
+    nn.set_error_const(0.004)
+    nn.set_momentum(0.0015)
 
     accuracy = [.5, .5]
     count = 0

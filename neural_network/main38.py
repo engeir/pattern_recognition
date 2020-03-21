@@ -120,6 +120,8 @@ def prob_4_10():
     accuracy = [.5, .5]
 
     nn = bp.NeuralNetwork(L=L, layer_dim=layer_dim, i_num=2)
+    nn.set_error_const(.006)
+
     count = 0
     threshold = 30000
     while accuracy[-1] < 0.96 or np.abs(accuracy[-1] - accuracy[-2]) > 0.01:
