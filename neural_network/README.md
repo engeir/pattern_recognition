@@ -8,7 +8,7 @@
 -   Training
     The network can be trained by calling the method `training` with the input and output vectors as required arguments, in addition to the dimension of the input space as an int. An optional argument can be given to accept a momentum parameter.
 
-The method returns the epoch error for the training, and several rounds of training may be needed.
+    The method returns the epoch error for the training, and several rounds of training may be needed.
 
 -   Usage
     To apply the neural network to a new set of data you call the method `propagate_forward`, where the only required argument is the test data set.
